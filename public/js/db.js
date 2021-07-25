@@ -6,7 +6,7 @@ const request = indexedDB.open("budget",1)
 
 request.onupgradeneeded = event => {
     let db = event.target.results;
-    db.createObjectStore("pending",{autoincrement:true})
+    db.createObjectStore("new_transaction",{autoincrement:true})
 }
 
 request.onsuccess = event => {
@@ -17,8 +17,8 @@ request.onsuccess = event => {
 }
 
 function dbChecker(){
-    const transaction = db.transaction["pending", "rewrite"]
-    const storeHandler = transaction.objectStore("pending")
+    const transaction = db.transaction["new_transaction", "rewrite"]
+    const storeHandler = transaction.objectStore("new_transaction")
     const getAll = storeHandler.getAll()
     getAll.onsuccess = function(){
         if(getAll.result.length > 0){
