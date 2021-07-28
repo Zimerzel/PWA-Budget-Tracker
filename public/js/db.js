@@ -16,14 +16,14 @@ request.onsuccess = function(event) {
 
 function saveRecord(record) {
     const transaction = db.transaction(['new_transaction'], 'readwrite');
-    const storeHandler = transaction.objectStore('new_transaction');
-    storeHandler.add(record);
+    const transactionObjectStore = transaction.objectStore('new_transaction');
+    transactionObjectStore.add(record);
 };
 
 function dbChecker(){
     const transaction = db.transaction(['new_transaction'], 'readwrite');
-    const storeHandler = transaction.objectStore('new_transaction')
-    const getAll = storeHandler.getAll()
+    const transactionObjectStore = transaction.objectStore('new_transaction')
+    const getAll = transactionObjectStore.getAll()
     getAll.onsuccess = function(){
         if(getAll.result.length > 0){
             fetch('/api/transaction', {
@@ -38,8 +38,8 @@ function dbChecker(){
             .then(response => response.json())
             .then(serverResponse => {
                 const transaction = db.transaction(['new_transaction'], 'readwrite');
-                const storeHandler = transaction.objectStore('new_transaction');
-                storeHandler.clear();
+                const transactionObjectStore = transaction.objectStore('new_transaction');
+                transactionObjectStore.clear();
             })
             .catch(err => {
                 console.log(err);
