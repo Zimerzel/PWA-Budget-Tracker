@@ -2,12 +2,12 @@ let db;
 
 const request = indexedDB.open("budget_tracker",1)
 
-request.onupgradeneeded = event => {
+request.onupgradeneeded = function(event){
     const db = event.target.results;
     db.createObjectStore('new_transaction',{autoIncrement:true});
 }
 
-request.onsuccess = event => {
+request.onsuccess = function(event) {
     db = event.target.result;
     if(navigator.online){
         dbChecker();
